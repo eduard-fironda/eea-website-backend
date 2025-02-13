@@ -6,7 +6,7 @@ on:
       - '*'
 
 env:
-  IMAGE_NAME: eduardvalentin/eea-website-backend
+  IMAGE_NAME: eea-website-backend
 
 jobs:
   build:
@@ -40,6 +40,6 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ env.version }}-arm64
-            ${{ env.IMAGE_NAME }}:latest-arm64
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.version }}-arm64
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest-arm64
           no-cache: true
