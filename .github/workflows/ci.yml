@@ -9,26 +9,35 @@ env:
   IMAGE_NAME: eduardvalentin/eea-website-backend
 
 jobs:
-  build:
+  debug-docker-login:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-
       - name: Print DockerHub Username (Sanity Check)
-        run: echo "DockerHub Username: ${{ secrets.DOCKERHUB_USERNAME }}"
+        run: |
+          echo "DockerHub Username: $DOCKERHUB_USERNAME"
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
       - name: Debug Login to DockerHub
         run: |
           echo "Attempting Docker login..."
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin || exit 1
+          echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin || exit 1
           echo "✅ Docker login successful!"
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Debug DockerHub Access (Check Repo Exists)
         run: |
           echo "Checking repository access..."
-          curl -s -o /dev/null -w "%{http_code}" -u "${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" "https://hub.docker.com/v2/repositories/${{ secrets.DOCKERHUB_USERNAME }}/plone-backend/"
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -u "$DOCKERHUB_USERNAME:$DOCKERHUB_TOKEN" "https://hub.docker.com/v2/repositories/$DOCKERHUB_USERNAME/plone-backend/")
+          echo "HTTP Response Code: $HTTP_CODE"
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # - name: Set up QEMU
       #   uses: docker/setup-qemu-action@v3        
