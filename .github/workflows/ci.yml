@@ -40,6 +40,5 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: |
-            # ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.version }}
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
           no-cache: true
