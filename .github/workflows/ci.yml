@@ -34,12 +34,12 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_ENV
 
       - name: Build and push Docker image (ARM)
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/arm64
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ env.version }}
-            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ env.version }}-arm64
+            ${{ env.IMAGE_NAME }}:latest-arm64
           no-cache: true
