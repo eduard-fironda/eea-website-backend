@@ -33,6 +33,11 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/}
           echo "version=$VERSION" >> $GITHUB_ENV
 
+      - name: Debug Image Name Before Push
+        run: |
+          echo "Using Docker Image Name: '${{ secrets.DOCKERHUB_USERNAME }}/eea-website-backend:6.0.13-29'"
+
+
       - name: Build and push Docker image (ARM)
         uses: docker/build-push-action@v5
         with:
