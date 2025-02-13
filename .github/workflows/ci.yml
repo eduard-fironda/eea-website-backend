@@ -40,5 +40,6 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: |
-            eduardvalentin/eea-website-backend:latest
+            ${{ env.IMAGE_NAME }}:${{ env.version }}
+            ${{ env.IMAGE_NAME }}:latest
           no-cache: true
