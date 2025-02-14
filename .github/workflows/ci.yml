@@ -18,7 +18,7 @@ jobs:
       # - name: Modify Dockerfile for ARM Version
       #   run: |
       #     cp Dockerfile Dockerfile.bak
-      #     sed -i -E 's|^FROM (eeacms/plone-backend:[0-9.-]+)|FROM \1-arm|' Dockerfile
+      #     sed -i -E 's|^FROM (eeacms/plone-backend:[0-9.-]+)|FROM \1-arm64|' Dockerfile
       #     echo "Modified Dockerfile:"
       #     cat Dockerfile
 
